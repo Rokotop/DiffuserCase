@@ -1,7 +1,7 @@
 #!/bin/sh
 cd "${0%/*}" || exit                                # Run from this directory
 
-. /OpenFOAM/OpenFOAM-v2412/etc/bashrc
+. /home/rokot/OpenFOAM/OpenFOAM-v2412/OpenFOAM-v2412/etc/bashrc
 
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
@@ -10,13 +10,45 @@ cd "${0%/*}" || exit                                # Run from this directory
 #wait
 #conda activate OFpy
 
-cases="SpalartAllmaras kOmegaSST kEpsilonPhitF  LaunderSharmaKE"
+selectModel()
+{
+    sed -i "s/modelName/$1/" "$1/constant/turbulenceProperties"
+}
+
+reduceTolerance()
+{
+    sed -i "s/relTol          0.1;/relTol          0.01;/" "$1/system/fvSolution"
+}
+
+decreaseRelaxation()
+{
+    sed -i 's/".*"            0.9/".*"            0.65/' "$1/system/fvSolution"
+}
+
+
+cases=" LaunderSharmaKE kEpsilonPhitF SpalartAllmaras kOmegaSST"
 
 mkdir Figures
-for case in $cases; do
-    echo "Entering $case..."
-    cd "$case" || { echo "Failed to enter $case"; continue; }
+for modelName in $cases; do
+        cloneCase common "$modelName"
+    case "$modelName" in
+    LaunderSharmaKE)
+       # decreaseRelaxation "$cases"
+        reduceTolerance "$modelName"
+        ;;
 
+    kEpsilonPhitF)
+        reduceTolerance "$modelName"
+        ;;
+
+    SpalartAllmaras)
+        decreaseRelaxation "$modelName"
+        ;;
+    esac
+    selectModel $modelName
+    echo "Entering $modelName..."
+    cd "$modelName" || { echo "Failed to enter $case"; continue; }
+    cp ../common/Diffuser.msh .
     # === Place your commands here ===
     # For example:
     cp -r 0.orig 0
