@@ -1,0 +1,37 @@
+/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py:10: SyntaxWarning: invalid escape sequence '\o'
+  model_names = ['$k-\omega$ SST',r'Launder Sharma $k-\varepsilon$',
+/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py:22: SyntaxWarning: invalid escape sequence '\m'
+  x_lable = ['$x/H+10U/{{U}_{\mathrm{b}}}$',
+/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py:23: SyntaxWarning: invalid escape sequence '\o'
+  '$x/H+500\overline{{u}^{2}}/{{U}_{\mathrm{b}}}^{2}$',
+/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py:24: SyntaxWarning: invalid escape sequence '\o'
+  '$x/H+500\overline{{v}^{2}}/{{U}_{\mathrm{b}}}^{2}$',
+/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py:25: SyntaxWarning: invalid escape sequence '\o'
+  '$x/H+500\overline{uv}/{{U}_{\mathrm{b}}}^{2}$']
+556
+../kOmegaSST/postProcessing/singleGraph-6/
+702
+../LaunderSharmaKE/postProcessing/singleGraph-6/
+2000
+../SpalartAllmaras/postProcessing/singleGraph-6/
+2000
+../kEpsilonPhitF/postProcessing/singleGraph-6/
+Traceback (most recent call last):
+  File "/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py", line 174, in <module>
+    main()
+    ~~~~^^
+  File "/home/rokot/OpenFOAM/OpenFOAM-v2412/rokot-24/Diffuser/support_Files/PostProcessing.py", line 156, in main
+    data = np.loadtxt(case_dir[k] + 'interface/' + sampleTime[k] + '/U_interface.raw')
+  File "/home/rokot/.local/lib/python3.13/site-packages/numpy/lib/_npyio_impl.py", line 1395, in loadtxt
+    arr = _read(fname, dtype=dtype, comment=comment, delimiter=delimiter,
+                converters=converters, skiplines=skiprows, usecols=usecols,
+                unpack=unpack, ndmin=ndmin, encoding=encoding,
+                max_rows=max_rows, quote=quotechar)
+  File "/home/rokot/.local/lib/python3.13/site-packages/numpy/lib/_npyio_impl.py", line 1022, in _read
+    fh = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/rokot/.local/lib/python3.13/site-packages/numpy/lib/_datasource.py", line 192, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rokot/.local/lib/python3.13/site-packages/numpy/lib/_datasource.py", line 529, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: ../LaunderSharmaKE/postProcessing/interface/702/U_interface.raw not found.

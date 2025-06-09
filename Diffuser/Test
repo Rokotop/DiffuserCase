@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+# Run case
+echo "Cleaning old results..."
+./Allclean > log.Allclean 2>&1
+echo "Running the differnt cases..."
+./Allrun  > log.Allrun 2>&1 
+
+# Compare fields
+echo "Comparing results with reference..."
+#diff -rq postProcessing reference/postProcessing
+#diff -q log.run reference/log.run | grep -v '^Only in'
+diff -q <(tail -n +20 kOmegaSST/log.mesh) <(tail -n +20 Ref/kOmegaSST.log.mesh)
+diff -q -I 'ExecutionTime' <(tail -n +100 kOmegaSST/log.solver) <(tail -n +100 Ref/kOmegaSST.log.solver)
+diff -q <(tail -n +20 LaunderSharmaKE/log.mesh) <(tail -n +20 Ref/LaunderSharmaKE.log.mesh)
+diff -q -I 'ExecutionTime' <(tail -n +100 LaunderSharmaKE/log.solver) <(tail -n +100 Ref/LaunderSharmaKE.log.solver)
+diff -q <(tail -n +20 SpalartAllmaras/log.mesh) <(tail -n +20 Ref/SpalartAllmaras.log.mesh)
+diff -q -I 'ExecutionTime' <(tail -n +100 SpalartAllmaras/log.solver) <(tail -n +100 Ref/SpalartAllmaras.log.solver)
+diff -q <(tail -n +20 kOmegaSST/log.mesh) <(tail -n +20 Ref/kOmegaSST.log.mesh)
+diff -q -I 'ExecutionTime' <(tail -n +100 kEpsilonPhitF/log.solver) <(tail -n +100 Ref/kEpsilonPhitF.log.solver)
+diff -q support_Files/log.post Ref/ref.log.post
+
+
+echo "Regression test passed."
