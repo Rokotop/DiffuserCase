@@ -1,0 +1,51 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+
+. /OpenFOAM/OpenFOAM-v2412/etc/bashrc
+
+. ${WM_PROJECT_DIR:?}/bin/tools/CleanFunctions      # Tutorial clean functions
+#------------------------------------------------------------------------------
+
+
+
+cases="SpalartAllmaras kOmegaSST kEpsilonPhitF  LaunderSharmaKE"
+
+
+for case in $cases; do
+    echo "Entering $case..."
+    cd "$case" || { echo "Failed to enter $case"; continue; }
+   # rm -r 1* 2* 3* 4* 5* 6* 7* 8* 9*
+   # wait
+   # rm -r postProcessing
+   # wait
+    foamCleanTutorials
+#    rm -r ../Simulations/results/$case/postProcessing
+    cd ..
+done
+rm -r Figures
+rm support_Files/log.post
+
+
+
+#keepCases="
+#cavity
+#cavityGrade
+#cavityClipped
+#"
+#
+#loseCases="
+#cavityFine
+#cavityHighRe
+#"
+#
+#for caseName in $keepCases
+#do
+#    ( cd "$caseName" && foamCleanTutorials )
+#done
+#
+#for caseName in $loseCases
+#do
+#    removeCase "$caseName"
+#done
+
+#------------------------------------------------------------------------------

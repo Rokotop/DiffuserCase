@@ -1,0 +1,174 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2412                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     simpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         2000;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   2000;
+
+purgeWrite      1;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
+{
+    wallShearStress
+    {
+    type                wallShearStress;
+    libs                ("fieldFunctionObjects");//("libsampling.so");
+
+    patches         (lowerWall upperWall);
+    writeFields     yes;
+
+    writeControl        timeStep;
+    writeInterval       2000;
+    }
+
+    turbulenceFields1
+    {
+    // Mandatory entries (unmodifiable)
+    type            turbulenceFields;
+    libs            (fieldFunctionObjects);
+
+    // Mandatory entries (runtime modifiable)
+    // Either field or fields entries
+    //fields          (R devRhoReff);
+    field           R;
+    writeControl        timeStep;
+    writeInterval       2000;
+    }
+   
+    components1
+    {
+    // Mandatory entries (unmodifiable)
+    type            components;
+    libs            (fieldFunctionObjects);
+
+    // Mandatory (inherited) entry (runtime modifiable)
+    field           U;
+    writeControl        timeStep;
+    writeInterval       2000; 
+    }
+
+    surfaceSampling
+    {
+    // Mandatory entries
+    type           surfaces;
+    libs	   ("libsampling.so");
+    enabeled       true;
+    writeControl	outputTime;
+    interpolationScheme	cellPatchConstrained;
+    surfaceFormat	raw;
+    fields	(p wallShearStress);
+    surfaces
+    (
+	lowerWall
+	{
+	type	patch;
+	patches	(lowerWall);
+//	distance	1E-6;
+	interpolate	true;
+	triangulate	false;
+ 	}
+        upperWall
+        {
+        type    patch;
+        patches (upperWall);
+//      distance        1E-6;
+        interpolate     true;
+        triangulate     false;
+        }
+    );
+    }
+
+/*    fieldAverage1
+    {
+        type            fieldAverage;
+        libs            ("libfieldFunctionObjects.so");
+        writeControl    timeStep;
+        writeInterval   100;
+//      restartTime     5.5;
+        outputControl   writeTime;
+
+        fields
+        (
+            U
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+//            wallShearStress
+//            {
+//                mean        on;
+//                prime2Mean  off;
+//                base        time;
+//            }
+        );
+    }
+*/
+//    #includeFunc streamlines
+#includeFunc interface
+#includeFunc singleGraph-1_7
+#includeFunc singleGraph-6
+#includeFunc singleGraph3
+#includeFunc singleGraph6
+#includeFunc singleGraph13
+#includeFunc singleGraph14
+#includeFunc singleGraph16
+#includeFunc singleGraph17
+#includeFunc singleGraph19
+#includeFunc singleGraph20
+#includeFunc singleGraph23
+#includeFunc singleGraph24
+#includeFunc singleGraph26
+#includeFunc singleGraph27
+#includeFunc singleGraph29
+#includeFunc singleGraph30
+#includeFunc singleGraph33
+#includeFunc singleGraph34
+#includeFunc singleGraph40
+#includeFunc singleGraph47
+#includeFunc singleGraph53
+#includeFunc singleGraph60
+#includeFunc singleGraph67
+#includeFunc singleGraph74
+
+}
+
+
+// ************************************************************************* //
