@@ -1,7 +1,8 @@
 #!/bin/sh
 cd "${0%/*}" || exit                                # Run from this directory
 
-. /home/rokot/OpenFOAM/OpenFOAM-v2412/OpenFOAM-v2412/etc/bashrc
+# source example 
+#. /home/rokot/OpenFOAM/OpenFOAM-v2412/etc/bashrc
 
 . ${WM_PROJECT_DIR:?}/bin/tools/CleanFunctions      # Tutorial clean functions
 #------------------------------------------------------------------------------

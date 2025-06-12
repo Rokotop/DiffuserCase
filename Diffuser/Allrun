@@ -1,7 +1,8 @@
 #!/bin/sh
 cd "${0%/*}" || exit                                # Run from this directory
 
-. /home/rokot/OpenFOAM/OpenFOAM-v2412/OpenFOAM-v2412/etc/bashrc
+# source example 
+#. /home/rokot/OpenFOAM/OpenFOAM-v2412/etc/bashrc
 
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
@@ -25,6 +26,10 @@ decreaseRelaxation()
     sed -i 's/".*"            0.9/".*"            0.65/' "$1/system/fvSolution"
 }
 
+isoValue()
+{
+    sed -i "s/isoValue  0;/isoValue  1e-10;/" "$1/system/interface"
+}
 
 cases=" LaunderSharmaKE kEpsilonPhitF SpalartAllmaras kOmegaSST"
 
@@ -35,6 +40,7 @@ for modelName in $cases; do
     LaunderSharmaKE)
        # decreaseRelaxation "$cases"
         reduceTolerance "$modelName"
+	isoValue "$modelName"
         ;;
 
     kEpsilonPhitF)
