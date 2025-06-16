@@ -1,10 +1,10 @@
 Final project for "Software applications for high performance wind farm simulations" based on first assignment of course "Basic usage of OpenFOAM"
 
-#OpenFOAM version required:
+# OpenFOAM version required:
 
 The notes below are from when I did my own installation. It is basically the same as in the official installation instructions.
 
-#Preparations (including ParaView):
+# Preparations (including ParaView):
 
 sudo apt-get update
 
@@ -20,7 +20,7 @@ sudo apt install paraview-dev
 
 sudo apt install cmake qtbase5-dev qttools5-dev qttools5-dev-tools libqt5opengl5-dev libqt5x11extras5-dev libxt-dev
 
-#Installation of OpenFOAM-v2412:
+# Installation of OpenFOAM-v2412:
 
 mkdir ~/OpenFOAM
 
@@ -44,11 +44,11 @@ foam
 
 ./Allwmake -j -s -q -k >& log_Allwmake
 
-#Do again, in case some dependent compilations failed
+# Do again, in case some dependent compilations failed
 
 ./Allwmake -j -s -q -k >& log_Allwmake
 
-#Alternatively 
+# Alternatively 
 
 visit --> https://github.com/olesenm/openfoam
 

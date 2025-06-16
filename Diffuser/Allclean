@@ -8,9 +8,6 @@ cd "${0%/*}" || exit                                # Run from this directory
 #------------------------------------------------------------------------------
 
 
-
-#cases="SpalartAllmaras kOmegaSST kEpsilonPhitF  LaunderSharmaKE"
-
 keepCases="
 common
 "
@@ -22,10 +19,6 @@ kOmegaSST
 kEpsilonPhitF
 "
 
-#for caseName in $keepCases
-#do
-#        ( cd "$caseName" && rm system/sample*[0-9]* && sed -i '/#includeFunc sample.*/d' system/controlDict && foamCleanTutorials)
-#done
 
 for caseName in $loseCases
 do
@@ -33,43 +26,9 @@ do
 done
 
 
-
-#for case in $cases; do
-#    echo "Entering $case..."
-#    cd "$case" || { echo "Failed to enter $case"; continue; }
-   # rm -r 1* 2* 3* 4* 5* 6* 7* 8* 9*
-   # wait
-   # rm -r postProcessing
-   # wait
-#    foamCleanTutorials
-#    rm -r ../Simulations/results/$case/postProcessing
-#    cd ..
-#done
-
 rm -r Figures
 rm support_Files/log.post
 
 
-
-#keepCases="
-#cavity
-#cavityGrade
-#cavityClipped
-#"
-#
-#loseCases="
-#cavityFine
-#cavityHighRe
-#"
-#
-#for caseName in $keepCases
-#do
-#    ( cd "$caseName" && foamCleanTutorials )
-#done
-#
-#for caseName in $loseCases
-#do
-#    removeCase "$caseName"
-#done
 
 #------------------------------------------------------------------------------
